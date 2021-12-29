@@ -63,9 +63,10 @@ describe "get new_customer_path" do
   end
   describe "delete a customer record" do
     it "deletes a customer record" do
-      customer = FactoryBot.create(:customer) 
-      expect { delete :destroy, params:{ id: customer.id } }.to change(Customer, :count).by(-1)
-      expect(flash[:notice]).to eq 'customer was successfully deleted.'
+      customer = FactoryBot.attributes_for(:customer)
+      customer.delete(:id)
+      expect { post customers_path, params: {customer: customer}
+    }.to change(Customer, :count)
     end
   end
 end
