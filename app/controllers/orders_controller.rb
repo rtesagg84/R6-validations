@@ -1,8 +1,7 @@
 class OrdersController < ApplicationController
-   before_action :set_post
+   before_action :set_post,only: [:show, :edit, :update, :destroy]
         def index
-          @customer = Customer.find(params[:customer_id])
-          @order = @customer.orders
+          @order = Order.all
         end
       
         # GET /order/1 or /customers/1.json
@@ -11,20 +10,20 @@ class OrdersController < ApplicationController
       
         # GET /order/new
         def new
-          @order= rder.new
+          @order= Order.new
         end
       
         # GET /order/1/edit
         def edit
-          @order = Order.find(params[:id])
         end
       
         # POST /order
         def create
-          @order = @customer.orders.create(order_params)
+          @order = Order.new(order_params)
           if @order.save
             flash.notice = "The order record was created successfully."
-            redirect_to customer_path(@customer)
+            reload @order
+            redirect_to @order
           else
             flash.now.alert = @order.errors.full_messages.to_sentence
             render :new  
@@ -33,16 +32,18 @@ class OrdersController < ApplicationController
       
         # PATCH/PUT /order
         def update
-          @order = Order.find(params[:id])
-          @order.update(order_params)
-          redirect_to @customer 
+          if @order.update(order_params)
+            flash.notice = "The order was updated successfully."
+            redirect_to @order
+          else
+            flash.now.alert = @order.errors.full_messages.to_sentence
+            render :edit
+          end
         end
-      
         # DELETE /order
         def destroy
-          @order = Order.find(params[:id])
           @order.destroy
-          redirect_to @customer
+          redirect_to @order
         end
       
         private
@@ -51,13 +52,13 @@ class OrdersController < ApplicationController
         end
       
         def set_post
-          @customer = Customer.find(params[:customer_id])
+        @order = Order.find(params[:id])
         end
         
           def catch_not_found(e)
             Rails.logger.debug("We had a not found exception.")
             flash.alert = e.to_s
-            redirect_to customers_path
+            redirect_to orders_path
       end
       
  end
