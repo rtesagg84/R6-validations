@@ -1,6 +1,7 @@
 require 'rails_helper'
+
 RSpec.describe Order, type: :model do
-  subject { Order.new(product_name: "milk", product_count: '5')}
+  subject { Order.new(product_name: "milk", product_count: 5, customer: FactoryBot.create(:customer))}
   it "is valid with valid attributes" do
   expect(subject).to be_valid
   end
