@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Customers</h1>
+<h1 class ='h1'>Customers</h1>
 
 <table>
   <thead>
@@ -18,9 +18,9 @@
         <td><%= customer.full_name %></td>
         <td><%= customer.phone %></td>
         <td><%= customer.email %></td>
-        <td><%= link_to 'Show', customer %></td>
-        <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
-        <td><%= link_to 'Destroy', customer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= button_to 'Show', customer_path(:id => customer.id), class:"btn btn-primary", method: :get %></td>
+        <td><%= button_to 'Edit', edit_customer_path(:id => customer.id), class:"btn btn-primary", method: :get %></td>
+        <td><%= link_to 'Destroy',  customer_path(:id => customer.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

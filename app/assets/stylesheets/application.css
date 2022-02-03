@@ -10,6 +10,20 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *= require bootstrap
  *= require_tree .
  *= require_self
  */
+ .jumbo-background {
+    background-image: url("dog.jpg");
+    background-size: cover;
+  }
+
+  @font-face {
+    font-family: 'MONBIJOUX';
+    src: url('CormorantGaramond-Bold.ttf');
+ }
+
+ h1 {
+   font-family: 'MONBIJOUX';
+ }
